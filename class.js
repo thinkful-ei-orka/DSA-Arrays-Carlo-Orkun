@@ -4,6 +4,7 @@
 
 
 const Memory = require('./memory-module');
+const memory = new Memory();
 
 class Array {
     constructor() {
@@ -18,6 +19,7 @@ class Array {
             this._resize((this.length + 1) * Array.SIZE_RATIO);
         }
         
+        
         memory.set(this.ptr + this.length, value);
         this.length++;
     }
@@ -29,7 +31,7 @@ class Array {
             throw new Error('Out of memory');
         }
         memory.copy(this.ptr, originPtr, this.length);
-        memory.free(oldPtr);
+        memory.free(originPtr);
         this._capacity = size;
     }
 
@@ -73,3 +75,6 @@ class Array {
 }
 
 Array.SIZE_RATIO = 3;
+
+module.exports = Array;
+

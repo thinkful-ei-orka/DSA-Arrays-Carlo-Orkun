@@ -4,11 +4,6 @@ class Memory {
       this.head = 0;
     }
 
-
-    //push(value)
-
-    //resize(size)
-  
     allocate(size) {
       if (this.head + size > this.memory.length) {
         return null;
@@ -20,7 +15,9 @@ class Memory {
       return start;
     }
   
-    free(ptr) {}
+    free(ptr) {
+
+    }
   
     copy(toIdx, fromIdx, size) {
       if (fromIdx === toIdx) {
