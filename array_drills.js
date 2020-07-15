@@ -72,15 +72,30 @@ function products(arr) {
 
 console.log(products([1, 3, 9, 4]));
 
+
+
 function search2DArray(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = 0; j < arr[i].length; j++) {
-            if(arr[i][j] === 0) {
-                arr[i] = arr[i].fill(0);
-            }
-        }
+    const zeroRows = [];
+  const zeroCols = [];
+  for (let i = 0; i < arr.length; i++) {
+    let row = arr[i];
+    for (let j = 0; j < row.length; j++) {
+      const item = row[j];
+      if (item === 0) {
+        zeroRows[i] = true;
+        zeroCols[j] = true;
+      }
     }
-    console.log(arr);
+  }
+  for (let i = 0; i < arr.length; i++) {
+    let row = arr[i];
+    for (let j = 0; j < row.length; j++) {
+      if (zeroRows[i] || zeroCols[j]) {
+        row[j] = 0;
+      }
+    }
+  }
+  return arr;
 }
 
 let exampleArray = [
@@ -92,6 +107,8 @@ let exampleArray = [
 ];
 
 console.log(search2DArray(exampleArray));
+
+
 
 function stringRotation(str1, str2) {
     let arr1 = str1.split('');
