@@ -30,22 +30,45 @@ class Array {
         }
         memory.copy(this.ptr, originPtr, this.length);
         memory.free(oldPtr);
+        this._capacity = size;
     }
 
     pop() {
-
+        if(this.length <= 0) {
+            throw new Error('Cannot pop empty array');
+        }
+        const value = memory.get(this.ptr + this.length - 1)
+        this.length--;
+        return value;
     }
 
     get(index) {
+        if(index < 0 || index >= this.length) {
+            throw new Error('Invalid index');
+        }
 
+        return memory.get(this.ptr + index);
     }
 
     insert(value, index) {
+        if(index < 0 || index >= this.length) {
+            throw new Error('Invalid index')
+        }
+        if(this.length >= this._capacity) {
+            this._resize((this.length + 1) * Array.SIZE_RATIO);
+        }
 
+        memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
+        memory.set(this.ptr + index, value);
+        this.length++;
     }
 
     remove(index) {
-
+        if(index < 0 || index >= this.length) {
+            throw new Error('Invalid index')
+        }
+        memory.copy(this.ptr + index, this.ptr + index + 1, this.length - index - 1);
+        this.length--;
     }
 }
 
